@@ -21,7 +21,7 @@ RUN apt-get install -y --no-install-recommends \
       sudo \
       bc
 
-RUN apt-get install -y --install-recommends \
+RUN apt-get install -y \
       linux-generic-lts-xenial \
       xserver-xorg-core-lts-xenial \
       xserver-xorg-lts-xenial \
@@ -48,6 +48,11 @@ RUN echo "source ~/catkin_ws/devel/setup.bash" >> /root/.bashrc
 RUN echo "export ROS_MASTER_URI=http://172.17.0.1:11311" >> /root/.bashrc
 RUN echo "export ROS_IP=172.17.0.2" >> /root/.bashrc
 
+RUN echo "alias eb='gedit ~/.bashrc'"
+RUN echo "alias sb='source ~/.bashrc'" >> /root/.bashrc
+RUN echo "alias cs='cd ~/catkin_ws/src'" >> /root/.bashrc
+RUN echo "alias cm='cd ~/catkin_ws && catkin_make'" >> /root/.bashrc
+
 ADD /librealsense /root/catkin_ws/src/librealsense
 ADD /social_navigation /root/temporary_folder
 
@@ -62,3 +67,4 @@ RUN /bin/bash -c '. /opt/ros/kinetic/setup.bash; cd ~/catkin_ws; catkin_make'
 RUN cd ~/temporary_folder && \
     cp -r ros_realsense ~/catkin_ws/src
 RUN /bin/bash -c '. /opt/ros/kinetic/setup.bash; cd ~/catkin_ws; catkin_make'
+
